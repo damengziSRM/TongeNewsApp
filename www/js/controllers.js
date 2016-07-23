@@ -1,21 +1,13 @@
 angular.module('starter.controllers', [])
-    .controller('Tab1Ctrl', function ($scope,$rootScope, Tab1Service, $ionicSlideBoxDelegate, $ionicTabsDelegate) {
-        $rootScope.imgUrl = imgUrl;
-        
+    .controller('Tab1Ctrl', function ($scope, $rootScope, $timeout, Tab1Service, $ionicSlideBoxDelegate, $ionicTabsDelegate) {
+        $rootScope.imgUrl = server.imgUrl;
+
         var classify = Tab1Service.getClassify()
         $scope.slides = classify;
         $scope.tabs = classify;
 
         var slideIndex = 0;
-        Tab1Service.getList(classify[0].url, 1, 20).then(function (response) {
-            if (response.data.status) {
-                $scope.items = response.data.tngou;
-                console.log(response.data);
-            }
-        }, function (error) {
-            console.log(error);
-        })
-
+    
         $scope.slideChanged = function (index) {
             //这里使用instances[1]的原因是视图中有两个tabs
             $ionicTabsDelegate._instances[1].select(index);
@@ -29,6 +21,40 @@ angular.module('starter.controllers', [])
             //滑动的索引和速度
             $ionicSlideBoxDelegate.slide(index)
         }
+
+        var vm = $scope.vm = {
+            moredata: false,
+            items: [],
+            page: 1, 
+            init: function () {
+                Tab1Service.getList(classify[0].url, vm.page).success(function (response) {
+                    console.log(response);
+                    if (response.status) {
+                        vm.items = response.tngou;
+                    }
+                }).finally(function (error) {
+                    $scope.$broadcast('scroll.refreshComplete');
+                });
+            },
+            doRefresh: function () {
+                this.init();
+                $timeout(function () {
+                    $scope.$broadcast('scroll.refreshComplete');
+                }, 1000);
+            },
+            loadMore: function () {
+                vm.page += 1;
+                console.log('正在加载页数：'+vm.page);
+                Tab1Service.getList(classify[0].url, vm.page).success(function (response) {
+                    console.log(response);
+                    vm.items = vm.items.concat(response.tngou);
+                    if (response.tngou.length == 0) {
+                        vm.moredata = true;
+                    };
+                })
+            }
+        }
+        vm.init();
 
     })
     .controller('Tab2Ctrl', function ($scope) { })

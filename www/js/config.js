@@ -1,10 +1,13 @@
 
-var domain = "http://www.tngou.net/api"
-var imgUrl = "http://tnfs.tngou.net/image"
-var urls = {
-     
+var server = {
+    domain : "http://www.tngou.net/api",
+    imgUrl : "http://tnfs.tngou.net/image"
 }
 
-var cache ={
-    user :"TongeNews"
+var settings = {
+    rows : 10
+}
+
+var cache = {
+    user: "TongeNews"
 }
