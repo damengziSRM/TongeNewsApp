@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','starter.filter'])
 
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -23,12 +23,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     });
   })
 
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
-    // Ionic uses AngularUI Router which uses the concept of states
-    // Learn more here: https://github.com/angular-ui/ui-router
-    // Set up the various states which the app can be in.
-    // Each state's controller can be found in controllers.js
+    $ionicConfigProvider.tabs.style("standard"); // standard | striped
+
+    $ionicConfigProvider.navBar.alignTitle('center');
+    $ionicConfigProvider.backButton.text('返回');
+    $ionicConfigProvider.tabs.position('bottom');
+
     $stateProvider
       .state('tab', {
         url: '/tab',
