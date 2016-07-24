@@ -6,10 +6,31 @@ angular.module('starter.controllers', [])
         $scope.slides = classify;
         $scope.tabs = classify;
 
+
+        var getData = function (index) {
+            var c = classify[index];
+            if (c.isInit) {
+                c.getList(c).success(function (response) {
+                    c.items = response.tngou;
+                }).error(function(err){
+                    alert(err);
+                })
+                    .finally(function (error) {
+                        c.isInit = false;
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
+                        $scope.$broadcast('scroll.refreshComplete');
+                    }); 
+            }
+        } 
+
+        getData(0);
+
         $scope.slideChanged = function (index) {
+            getData(index);
             //这里使用instances[1]的原因是视图中有两个tabs
             $ionicTabsDelegate._instances[1].select(index);
         };
+
         $scope.$on('$ionicView.afterEnter', function () {
             //等待视图加载完成的时候默认选中第一个菜单
             $ionicTabsDelegate._instances[1].select($ionicSlideBoxDelegate.currentIndex());
@@ -20,34 +41,39 @@ angular.module('starter.controllers', [])
             $ionicSlideBoxDelegate.slide(index)
         }
 
-        var page = 1,isLock=false;
-        $scope.items = [];
-        $scope.loadMore = function () {
-            if(isLock)return;
-            isLock=true;
-            Tab1Service.getList(classify[0].url, page).success(function (response) {
-                console.log(page)
-                if (response.tngou.length == 0) {
-                    $scope.hasmore = true;
-                    return;
-                }
-                page++;
-                $scope.items = $scope.items.concat(response.tngou);
-            }).finally(function (error) {
-                isLock = false;
-                $scope.$broadcast('scroll.infiniteScrollComplete');
-                $scope.$broadcast('scroll.refreshComplete');
-            });
-        };
-        $scope.doRefresh = function () {
-            page = 1;
-            $scope.items = [];
-            $scope.loadMore();
-        }
+
+        // var page = 1, isLock = false;
+        // $scope.items = [];
+        // $scope.loadMore = function () {
+        //     if (isLock) return;
+        //     isLock = true;
+        //     Tab1Service.getList(classify[0].url, page).success(function (response) {
+        //         console.log(page)
+        //         if (response.tngou.length == 0) {
+        //             $scope.hasmore = true;
+        //             return;
+        //         }
+        //         page++;
+        //         $scope.items = $scope.items.concat(response.tngou);
+        //     }).finally(function (error) {
+        //         isLock = false;
+        //         $scope.$broadcast('scroll.infiniteScrollComplete');
+        //         $scope.$broadcast('scroll.refreshComplete');
+        //     });
+        // };
+        // $scope.doRefresh = function () {
+        //     page = 1;
+        //     $scope.items = [];
+        //     $scope.loadMore();
+        // }
         // $scope.$on('stateChangeSuccess', function () {
         //     $scope.loadMore();
         // });
-        
+
+    })
+    .controller('ListCtrl', function ($scope) {
+        alert(1)
+
     })
     .controller('Tab2Ctrl', function ($scope) { })
     .controller('Tab3Ctrl', function ($scope) { })
