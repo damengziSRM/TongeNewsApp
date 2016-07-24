@@ -1,20 +1,21 @@
 <ion-view view-title="健康">
 
   <ion-content>
-    <ion-refresher pulling-text="下拉刷新" class="has-header" on-refresh="vm.doRefresh()"></ion-refresher>
-    <ion-slide-box show-pager="false" class="has-header" on-slide-changed="slideChanged($index)">
-      <ion-slide ng-repeat="slide in slides">
-        <div class="list">
-          <a ng-repeat="item in vm.items" class="item item-thumbnail-right item-text-wrap" href="#">
-            <img ng-src="{{imgUrl+item.img}}" width="30" height="30" alt="">
-            <h3>{{::item.title}}</h3>
-            <p>{{::item.description | substring:item.description}}</p>
-          </a>
-        </div>
-      </ion-slide>
-    </ion-slide-box>
-    <ion-infinite-scroll ng-if="!vm.moredata" on-infinite="vm.loadMore()" icon="ion-loading-d" distance="1%">
+    <!--<ion-slide-box show-pager="false" class="has-header" on-slide-changed="slideChanged($index)">
+      <ion-slide ng-repeat="slide in slides">-->
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+    <div class="list">
+      <a ng-repeat="item in items" class="item item-thumbnail-right item-text-wrap" href="#">
+        <img ng-src="{{imgUrl+item.img}}" width="30" height="30" alt="">
+        <h3>{{item.title}}</h3>
+        <p>{{item.description | substring:item.description}}</p>
+      </a>
+    </div>
+    <ion-infinite-scroll ng-if="!hasmore" on-infinite="loadMore()" distance="1%">
     </ion-infinite-scroll>
+    <!--</ion-slide>
+    </ion-slide-box>-->
+
   </ion-content>
 
   <ion-tabs class="tabs-striped tabs-top">
