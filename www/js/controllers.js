@@ -12,7 +12,7 @@ angular.module('starter.controllers', [])
         };
         $scope.$on('$ionicView.afterEnter', function () {
             //等待视图加载完成的时候默认选中第一个菜单
-            // $ionicTabsDelegate._instances[1].select($ionicSlideBoxDelegate.currentIndex());
+            $ionicTabsDelegate._instances[1].select($ionicSlideBoxDelegate.currentIndex());
         });
 
         $scope.selectedTab = function (index) {
@@ -47,6 +47,7 @@ angular.module('starter.controllers', [])
         // $scope.$on('stateChangeSuccess', function () {
         //     $scope.loadMore();
         // });
+        
     })
     .controller('Tab2Ctrl', function ($scope) { })
     .controller('Tab3Ctrl', function ($scope) { })
