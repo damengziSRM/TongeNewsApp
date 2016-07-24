@@ -11,8 +11,7 @@ angular.module('starter.controllers', [])
             // 安卓平台不会自动触发加载
             if (ionic.Platform.isAndroid()) {
                 c.doRefresh();
-            } 
-
+            }  
             // 初始化数据，和回调函数 
             c.isload = false;
             c.callback = function () {
@@ -36,41 +35,10 @@ angular.module('starter.controllers', [])
         $scope.selectedTab = function (index) {
             //滑动的索引和速度
             $ionicSlideBoxDelegate.slide(index)
-        }
-
-
-        // var page = 1, isLock = false;
-        // $scope.items = [];
-        // $scope.loadMore = function () {
-        //     if (isLock) return;
-        //     isLock = true;
-        //     Tab1Service.getList(classify[0].url, page).success(function (response) {
-        //         console.log(page)
-        //         if (response.tngou.length == 0) {
-        //             $scope.hasmore = true;
-        //             return;
-        //         }
-        //         page++;
-        //         $scope.items = $scope.items.concat(response.tngou);
-        //     }).finally(function (error) {
-        //         isLock = false;
-        //         $scope.$broadcast('scroll.infiniteScrollComplete');
-        //         $scope.$broadcast('scroll.refreshComplete');
-        //     });
-        // };
-        // $scope.doRefresh = function () {
-        //     page = 1;
-        //     $scope.items = [];
-        //     $scope.loadMore();
-        // }
-        // $scope.$on('stateChangeSuccess', function () {
-        //     $scope.loadMore();
-        // });
-
+        } 
     })
     .controller('ListCtrl', function ($scope) {
-        alert(1)
-
+        alert(1) 
     })
     .controller('Tab2Ctrl', function ($scope) { })
     .controller('Tab3Ctrl', function ($scope) { })

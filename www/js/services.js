@@ -88,15 +88,9 @@ angular.module('starter.services', [])
           callback: function () {
             //回掉函数
           }
-        }
-        // ,{
-        //   name: '健康图书', viewable: false, url: server.domain + '/book/list',
-        //   page: 1, rows: 20, items: [],getList: this.getList
-        // }
+        } 
       ]
-    }
-
-
+    } 
   })
 
   .service('Tab2Service', function ($http) {
