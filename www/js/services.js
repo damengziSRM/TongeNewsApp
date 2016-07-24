@@ -17,6 +17,7 @@ angular.module('starter.services', [])
           items: [],
           loadMore: function () {
             $this = this;
+            console.log("正在加载更多数据..." + this.page);
             $http.get(this.url + "?page=" + this.page + "&rows=" + settings.rows).success(function (response) {
               $this.items = $this.items.concat(response.tngou);
               $this.page++;
@@ -26,7 +27,8 @@ angular.module('starter.services', [])
           doRefresh: function () {
             $this = this;
             $http.get(this.url + "?page=1&rows=" + settings.rows).success(function (response) {
-              $this.items = response.tngou
+              $this.page = 1;
+              $this.items = response.tngou;
               $this.callback();
             });
           },
@@ -49,6 +51,7 @@ angular.module('starter.services', [])
           doRefresh: function () {
             $this = this;
             $http.get(this.url + "?page=1&rows=" + settings.rows).success(function (response) {
+              $this.page = 1;
               $this.items = response.tngou
               $this.callback();
             });
@@ -72,6 +75,7 @@ angular.module('starter.services', [])
           doRefresh: function () {
             $this = this;
             $http.get(this.url + "?page=1&rows=" + settings.rows).success(function (response) {
+              $this.page = 1;
               $this.items = response.tngou
               $this.callback();
             });

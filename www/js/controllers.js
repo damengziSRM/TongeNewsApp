@@ -8,12 +8,20 @@ angular.module('starter.controllers', [])
 
         var getData = function (index) {
             var c = classify[index];
+
+            // 安卓平台不会自动触发加载
+            if (ionic.Platform.isAndroid()) {
+                c.doRefresh();
+            } 
+
             // 初始化数据，和回调函数 
             c.isload = false;
             c.callback = function () {
+                console.log("当前页数：" + (c.page - 1));
                 $scope.$broadcast('scroll.refreshComplete');
                 $scope.$broadcast('scroll.infiniteScrollComplete');
             }
+
         }
         getData(0);
 
