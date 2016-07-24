@@ -6,23 +6,15 @@ angular.module('starter.controllers', [])
         $scope.slides = classify;
         $scope.tabs = classify;
 
-
         var getData = function (index) {
             var c = classify[index];
-            if (c.isInit) {
-                c.getList(c).success(function (response) {
-                    c.items = response.tngou;
-                }).error(function(err){
-                    alert(err);
-                })
-                    .finally(function (error) {
-                        c.isInit = false;
-                        $scope.$broadcast('scroll.infiniteScrollComplete');
-                        $scope.$broadcast('scroll.refreshComplete');
-                    }); 
+            // 初始化数据，和回调函数 
+            c.isload = false;
+            c.callback = function () {
+                $scope.$broadcast('scroll.refreshComplete');
+                $scope.$broadcast('scroll.infiniteScrollComplete');
             }
-        } 
-
+        }
         getData(0);
 
         $scope.slideChanged = function (index) {

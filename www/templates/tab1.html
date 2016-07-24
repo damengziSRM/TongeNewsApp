@@ -3,7 +3,7 @@
     <ion-slide ng-repeat="slide in slides">
 
       <ion-content>
-        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+        <ion-refresher pulling-text="下拉刷新" on-refresh="slide.doRefresh()"></ion-refresher>
         <div class="list has-header">
           <a ng-repeat="item in slide.items" class="item item-thumbnail-right item-text-wrap" href="#">
             <img ng-src="{{imgUrl+item.img}}" width="30" height="30" alt="">
@@ -11,7 +11,7 @@
             <p>{{item.description | substring:item.description}}</p>
           </a>
         </div>
-        <ion-infinite-scroll ng-if="!hasmore" on-infinite="loadMore()" distance="1%">
+        <ion-infinite-scroll ng-if="!slide.isload" on-infinite="slide.loadMore()" distance="1%">
         </ion-infinite-scroll>
       </ion-content>
 
