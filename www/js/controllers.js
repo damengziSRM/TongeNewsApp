@@ -1,5 +1,5 @@
 angular.module('starter.controllers', [])
-    .controller('Tab1Ctrl', function ($scope, $rootScope, $timeout, Tab1Service, $ionicSlideBoxDelegate, $ionicTabsDelegate) {
+    .controller('Tab1Ctrl', function ($scope, $state, $rootScope, $timeout, Tab1Service, $ionicSlideBoxDelegate, $ionicTabsDelegate) {
         $rootScope.imgUrl = server.imgUrl;
 
         var classify = Tab1Service.getClassify()
@@ -11,7 +11,7 @@ angular.module('starter.controllers', [])
             // 安卓平台不会自动触发加载
             if (ionic.Platform.isAndroid()) {
                 c.doRefresh();
-            }  
+            }
             // 初始化数据，和回调函数 
             c.isload = false;
             c.callback = function () {
@@ -35,10 +35,21 @@ angular.module('starter.controllers', [])
         $scope.selectedTab = function (index) {
             //滑动的索引和速度
             $ionicSlideBoxDelegate.slide(index)
-        } 
+        }
+
+        $scope.goDetails = function (item) {
+            $state.go('tab.tab1-details', { id: item.id,title:item.title })
+        }
+    })
+    .controller('Tab1DetailsCtrl', function ($scope, $stateParams, Tab1Service) {
+        var id = $stateParams.id;
+        $scope.title = $stateParams.title;
+        Tab1Service.getDetails(id).success(function (response) {
+            $scope.item = response;
+        })
     })
     .controller('ListCtrl', function ($scope) {
-        alert(1) 
+        alert(1)
     })
     .controller('Tab2Ctrl', function ($scope) { })
     .controller('Tab3Ctrl', function ($scope) { })

@@ -9,6 +9,23 @@ angular.module('starter.services', [])
   })
   .service('Tab1Service', function ($http) {
 
+    var loadMore = function ($this) {
+      console.log("正在加载更多数据..." + $this.page);
+      $http.get($this.url + "?page=" + $this.page + "&rows=" + settings.rows).success(function (response) {
+        $this.items = $this.items.concat(response.tngou);
+        $this.page++;
+        $this.callback();
+      });
+    }
+
+    var doRefresh = function ($this) {
+      console.log("正在执行refresh操作...");
+      $http.get($this.url + "?page=1&rows=" + settings.rows).success(function (response) {
+        $this.page = 2;
+        $this.items = response.tngou;
+        $this.callback();
+      });
+    }
     this.getClassify = function () {
       return [
         {
@@ -16,22 +33,10 @@ angular.module('starter.services', [])
           page: 1, rows: 20,
           items: [],
           loadMore: function () {
-            $this = this;
-            console.log("正在加载更多数据..." + this.page);
-            $http.get(this.url + "?page=" + this.page + "&rows=" + settings.rows).success(function (response) {
-              $this.items = $this.items.concat(response.tngou);
-              $this.page++;
-              $this.callback();
-            });
+            loadMore(this);
           },
           doRefresh: function () {
-            $this = this;
-            console.log("正在执行refresh操作...");
-            $http.get(this.url + "?page=1&rows=" + settings.rows).success(function (response) {
-              $this.page = 2;
-              $this.items = response.tngou;
-              $this.callback();
-            });
+            doRefresh(this);
           },
           callback: function () {
             //回掉函数
@@ -42,22 +47,10 @@ angular.module('starter.services', [])
           page: 1, rows: 20,
           items: [],
           loadMore: function () {
-            $this = this;
-            console.log("正在加载更多数据..." + this.page);
-            $http.get(this.url + "?page=" + this.page + "&rows=" + settings.rows).success(function (response) {
-              $this.items = $this.items.concat(response.tngou);
-              $this.page++;
-              $this.callback();
-            });
+            loadMore(this);
           },
           doRefresh: function () {
-            $this = this;
-            console.log("正在执行refresh操作...");
-            $http.get(this.url + "?page=1&rows=" + settings.rows).success(function (response) {
-              $this.page = 2;
-              $this.items = response.tngou
-              $this.callback();
-            });
+            doRefresh(this);
           },
           callback: function () {
             //回掉函数
@@ -68,29 +61,21 @@ angular.module('starter.services', [])
           page: 1, rows: 20,
           items: [],
           loadMore: function () {
-            $this = this;
-            console.log("正在加载更多数据..." + this.page);
-            $http.get(this.url + "?page=" + this.page + "&rows=" + settings.rows).success(function (response) {
-              $this.items = $this.items.concat(response.tngou);
-              $this.page++;
-              $this.callback();
-            });
+            loadMore(this);
           },
           doRefresh: function () {
-            $this = this;
-            console.log("正在执行refresh操作...");
-            $http.get(this.url + "?page=1&rows=" + settings.rows).success(function (response) {
-              $this.page = 2;
-              $this.items = response.tngou
-              $this.callback();
-            });
+            doRefresh(this);
           },
           callback: function () {
             //回掉函数
           }
-        } 
+        }
       ]
-    } 
+    }
+
+    this.getDetails = function (id) {
+      return $http.get(urls.info_show + id);
+    }
   })
 
   .service('Tab2Service', function ($http) {

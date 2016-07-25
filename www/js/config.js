@@ -4,6 +4,9 @@ var server = {
     imgUrl : "http://tnfs.tngou.net/image"
 }
 
+var urls = {
+    info_show:server.domain+"/info/show?id="
+}
 var settings = {
     rows : 10
 }
