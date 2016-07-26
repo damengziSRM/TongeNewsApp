@@ -1,7 +1,7 @@
 <ion-view view-title="健康">
   <ion-slide-box show-pager="false" on-slide-changed="slideChanged($index)">
     <ion-slide ng-repeat="slide in slides">
-
+    
       <ion-content>
         <ion-refresher pulling-text="下拉刷新" on-refresh="slide.doRefresh()"></ion-refresher>
         <div class="list has-header">

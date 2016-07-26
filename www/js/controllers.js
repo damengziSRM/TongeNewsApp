@@ -38,8 +38,13 @@ angular.module('starter.controllers', [])
         }
 
         $scope.goDetails = function (item) {
-            $state.go('tab.tab1-details', { id: item.id,title:item.title })
+            $state.go('tab.tab1-details', { id: item.id, title: item.title })
+            $ionicTabsDelegate.showBar(false);
         }
+        $scope.$on('$ionicView.beforeEnter', function () {
+            console.log('已经成为活动视图');
+            $ionicTabsDelegate.showBar(true);
+        });
     })
     .controller('Tab1DetailsCtrl', function ($scope, $stateParams, Tab1Service) {
         var id = $stateParams.id;
