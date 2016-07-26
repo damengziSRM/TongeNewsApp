@@ -29,7 +29,7 @@ angular.module('starter.services', [])
     this.getClassify = function () {
       return [
         {
-          name: '健康资讯', isload: true, url: server.domain + '/info/list',
+          name: '健康资讯', isload: true, url: server.domain + '/info/list',type:'info',
           page: 1, rows: 20,
           items: [],
           loadMore: function () {
@@ -43,7 +43,7 @@ angular.module('starter.services', [])
           }
         },
         {
-          name: '健康知识', isload: true, url: server.domain + '/lore/list',
+          name: '健康知识', isload: true, url: server.domain + '/lore/list',type:'lore',
           page: 1, rows: 20,
           items: [],
           loadMore: function () {
@@ -57,7 +57,7 @@ angular.module('starter.services', [])
           }
         },
         {
-          name: '健康问答', isload: true, url: server.domain + '/ask/list',
+          name: '健康问答', isload: true, url: server.domain + '/ask/list',type:'ask',
           page: 1, rows: 20,
           items: [],
           loadMore: function () {
@@ -73,8 +73,9 @@ angular.module('starter.services', [])
       ]
     }
 
-    this.getDetails = function (id) {
-      return $http.get(urls.info_show + id);
+    this.getDetails = function (type,id) {
+      var url = server.domain+"/"+type+"/show?id="+id;
+      return $http.get(url);
     }
   })
 

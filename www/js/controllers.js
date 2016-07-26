@@ -37,8 +37,8 @@ angular.module('starter.controllers', [])
             $ionicSlideBoxDelegate.slide(index)
         }
 
-        $scope.goDetails = function (item) {
-            $state.go('tab.tab1-details', { id: item.id, title: item.title })
+        $scope.goDetails = function (item,type) {
+            $state.go('tab.tab1-details', { id: item.id, title: item.title,type:type })
             $ionicTabsDelegate.showBar(false);
         }
         $scope.$on('$ionicView.beforeEnter', function () {
@@ -48,8 +48,9 @@ angular.module('starter.controllers', [])
     })
     .controller('Tab1DetailsCtrl', function ($scope, $stateParams, Tab1Service) {
         var id = $stateParams.id;
+        var type = $stateParams.type;
         $scope.title = $stateParams.title;
-        Tab1Service.getDetails(id).success(function (response) {
+        Tab1Service.getDetails(type,id).success(function (response) {
             $scope.item = response;
         })
     })
