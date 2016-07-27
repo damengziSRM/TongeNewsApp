@@ -64,12 +64,30 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           }
         }
       })
+      .state('tab.tab2-details', {
+        url: '/tab/tab2-details/:id/:title/:type',
+        views: {
+          'tab2': {
+            templateUrl: 'templates/tab2-details.html',
+            controller: 'Tab1DetailsCtrl'
+          }
+        }
+      })
       .state('tab.tab3', {
         url: '/tab3',
         views: {
           'tab3': {
             templateUrl: 'templates/tab3.html',
             controller: 'Tab3Ctrl'
+          }
+        }
+      })
+      .state('tab.tab3-details', {
+        url: '/tab/tab3-details/:id/:title/:type',
+        views: {
+          'tab3': {
+            templateUrl: 'templates/tab3-details.html',
+            controller: 'Tab1DetailsCtrl'
           }
         }
       })
@@ -82,6 +100,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           }
         }
       })
+      .state('tab.tab4-details', {
+        url: '/tab/tab4-details/:id/:title/:type',
+        views: {
+          'tab4': {
+            templateUrl: 'templates/tab4-details.html',
+            controller: 'Tab1DetailsCtrl'
+          }
+        }
+      })
       .state('tab.account', {
         url: '/account',
         views: {
@@ -90,7 +117,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             controller: 'AccountCtrl'
           }
         }
-      });
+      })
+      .state('tab.account-details', {
+        url: '/tab/account-details',
+        views: {
+          'tab-account': {
+            templateUrl: 'templates/tab-account-details.html',
+            controller: 'AccountDetailsCtrl'
+          }
+        }
+      });;
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/tab/tab1');

@@ -1,6 +1,59 @@
-<ion-view view-title="我">
-  <ion-content class="padding">
-  
-  
-  </ion-content>
+<ion-view view-title="我" cache-view="true">
+    <ion-content>
+        <ion-list>
+            <ion-item class="item-divider item-gap">
+            </ion-item>
+            <a class="item item-avatar item-icon-right" ng-click="goDetails()">
+                <img ng-src="/img/TongeLog.png">
+
+                <h2><span >Tonge</span></h2>
+
+                <!--<p>积分：<span bo-bind="Account.score"></span></p>-->
+                <i class="icon ion-ios-arrow-right"></i>
+            </a>
+
+            <div class="button-bar bar-light text-center">
+                <a class="button icon-left" ng-click="openModal(1)">
+                    <i class="icon ion-ios-star-outline"></i>
+                    <span>收藏</span>
+                </a>
+                  <a class="button  icon-left" ng-click="openModal(4)"><i class="icon ion-ios-chatboxes-outline"></i>
+                    关注</a>
+                       </div>
+            <div class="button-bar bar-light text-center">
+                <a class="button icon-left" badge="messageCount"
+                   badge-style="badge-assertive" ng-click="openModal(2)"><i class="icon ion-ios-email-outline"></i>
+                    所有动态 <span ng-if="badges.message" class="badge badge-assertive" bo-bind="badges.message"></span></a>
+   
+                <a class="button  icon-left" ng-click="openModal(3)"><i class="icon ion-ios-chatbubble-outline"></i>
+                    发布说说</a> 
+            </div>
+             <div class="button-bar bar-light text-center">
+                <a class="button icon-left" badge="messageCount"
+                   badge-style="badge-assertive" ng-click="openModal(2)"><i class="icon ion-ios-email-outline"></i>
+                    提到我 <span ng-if="badges.message" class="badge badge-assertive" bo-bind="badges.message"></span></a>
+   
+                <a class="button  icon-left" ng-click="openModal(3)"><i class="icon ion-ios-chatbubble-outline"></i>
+                    我的留言</a> 
+            </div>
+            <ion-item class="item-divider item-gap">
+                关于
+            </ion-item>
+            <ion-item>
+                当前版本
+                <span class="item-note">1.0.0</span>
+                <!--<span class="item-note" ng-bind="appVersion"></span>-->
+            </ion-item>
+            <ion-item>
+                联系作者
+                <span class="item-note">微信订阅号：TongeBlog</span>
+            </ion-item>
+            <ion-item onclick="window.open('https://git.oschina.net/tonge/TongeNewsApp', '_blank', 'location=yes')">
+                此项目已开源
+            </ion-item>
+        </ion-list>
+        <div class="text-center">
+            &copy; @TongeBlog
+        </div>
+    </ion-content>
 </ion-view>

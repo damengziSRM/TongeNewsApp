@@ -17,7 +17,7 @@
       
     </ion-slide>
   </ion-slide-box>
-  <ion-tabs class="tabs-striped tabs-top">
+  <ion-tabs id="{{currentTabId}}" class="tabs-striped tabs-top">
     <ion-tab ng-repeat="item in tabs" on-select="selectedTab($index)" title="{{item.name}}"></ion-tab>
   </ion-tabs>
 </ion-view>
