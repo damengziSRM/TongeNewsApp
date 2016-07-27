@@ -8,7 +8,7 @@ angular.module('starter.services', [])
   .service('BaseService', function ($http) {
     this.loadMore = function ($this) {
       console.log("正在加载更多数据..." + $this.page);
-      $http.get($this.url + "?page=" + $this.page + "&rows=" + settings.rows).success(function (response) {
+      $http.jsonp($this.url + "?page=" + $this.page + "&rows=" + settings.rows + "&callback=JSON_CALLBACK").success(function (response) {
         console.log(response);
         if (response.tngou.length > 0) {
           $this.items = $this.items.concat(response.tngou);
@@ -23,13 +23,21 @@ angular.module('starter.services', [])
 
     this.doRefresh = function ($this) {
       console.log("正在执行refresh操作...");
-      $http.get($this.url + "?page=1&rows=" + settings.rows).success(function (response) {
+      //使用jsonp的方式请求
+      $http.jsonp($this.url + "?page=1&rows=" + settings.rows + "&callback=JSON_CALLBACK").success(function (response) {
         console.log(response);
         $this.page = 2;
         $this.items = response.tngou;
         $this.callback();
         $this.isload = false;
       });
+      // $http.get($this.url + "?page=1&rows=" + settings.rows).success(function (response) {
+      //   console.log(response);
+      //   $this.page = 2;
+      //   $this.items = response.tngou;
+      //   $this.callback();
+      //   $this.isload = false;
+      // });
     }
   })
   .service('Tab1Service', function ($http, BaseService) {
@@ -82,14 +90,14 @@ angular.module('starter.services', [])
     }
 
     this.getDetails = function (type, id) {
-      var url = server.domain + "/" + type + "/show?id=" + id;
-      return $http.get(url);
+      var url = server.domain + "/" + type + "/show?id=" + id + "&callback=JSON_CALLBACK";
+      return $http.jsonp(url);
     }
   })
   .service('Tab2Service', function ($http) {
     var loadMore = function ($this) {
       console.log("正在加载更多数据..." + $this.page);
-      $http.get($this.url + "?page=" + $this.page + "&rows=" + settings.rows).success(function (response) {
+      $http.jsonp($this.url + "?page=" + $this.page + "&rows=" + settings.rows + "&callback=JSON_CALLBACK").success(function (response) {
         console.log(response);
         if (response.list) {
           $this.items = $this.items.concat(response.list);
@@ -104,7 +112,7 @@ angular.module('starter.services', [])
 
     var doRefresh = function ($this) {
       console.log("正在执行refresh操作...");
-      $http.get($this.url + "?page=1&rows=" + settings.rows).success(function (response) {
+      $http.jsonp($this.url + "?page=1&rows=" + settings.rows + "&callback=JSON_CALLBACK").success(function (response) {
         console.log(response);
         if (response.list) {
           $this.page = 2;
@@ -257,15 +265,15 @@ angular.module('starter.services', [])
           callback: function () {
             //回掉函数
           }
-        } 
+        }
       ]
     }
 
     this.getDetails = function (type, id) {
-      var url = server.domain + "/" + type + "/show?id=" + id;
-      return $http.get(url);
+      var url = server.domain + "/" + type + "/show?id=" + id + "&callback=JSON_CALLBACK";
+      return $http.jsonp(url);
     }
   })
-  .service('AccountCtrl',function($http){
+  .service('AccountCtrl', function ($http) {
 
   });
