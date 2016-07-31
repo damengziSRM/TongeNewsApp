@@ -1,24 +1,64 @@
 <ion-view view-title="个人中心">
     <ion-content bindonce="Account" style="background: #f4f4f4">
         <ion-list>
-            <ion-item class="item-divider item-gap">
-            </ion-item>
             <a class="item item-avatar" href="#">
-                <img ng-src="/img/TongeLog.png" />
-                <h2><span>Tonge</span></h2>
+                <img src="avatar" ng-src="img/ben.png" />
+                <h2><span ng-bind="account">Tonge</span></h2>
+                <p>积分：<span bo-bind="integral"></span></p>
             </a>
             <ion-item>
-                推送通知
-                <span class="version" bo-bind="Account.score"></span>
+                邮箱
+                <span class="item-note" ng-bind="email"></span>
+            </ion-item>
+            <!--<ion-item>
+                 用户主页域名 http://www.tngou.net/my/+domain
+                <span class="item-note" ng-bind="domain"></span>
+            </ion-item> -->
+            <!--<ion-item>
+                 个性标题
+                <span class="item-note" ng-bind="title"></span>
+            </ion-item>-->
+            <!--<ion-item>
+                 其他主页
+                <span class="item-note" ng-bind="home"></span>
+            </ion-item>-->
+            <ion-item>
+                性别
+                <span class="item-note" ng-bind="gender"></span>
             </ion-item>
             <ion-item>
-                清理缓存
-                <span class="version" bo-bind="Account.score"></span>
+                出生年月
+                <span class="item-note" ng-bind="birth"></span>
             </ion-item>
             <ion-item>
-                注册日期
-                <span class="version" bo-bind="Account.create_at|date:'yyyy-MM-dd'"></span>
+                省份
+                <span class="item-note" ng-bind="province"></span>
             </ion-item>
+            <ion-item>
+                城市
+                <span class="item-note" ng-bind="city"></span>
+            </ion-item>
+            <ion-item>
+                个性签名
+                <span class="item-note" ng-bind="signature"></span>
+            </ion-item>
+            <ion-item>
+                电话
+                <span class="item-note" ng-bind="phone"></span>
+            </ion-item>
+            <ion-item>
+                QQ
+                <span class="item-note" ng-bind="qq"></span>
+            </ion-item>
+            <ion-item>
+                微博
+                <span class="item-note" ng-bind="weibo"></span>
+            </ion-item>
+            <ion-item>
+                注册时间
+                <span class="item-note" ng-bind="time"></span>
+            </ion-item>
+ 
             <ion-item>
                 <button ng-click="loginOut()" class="button button-full button-positive">注销
                 </button>

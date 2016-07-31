@@ -98,7 +98,6 @@ angular.module('starter.controllers', [])
             if (item.name) {
                 title += item.name;
             }
-            console.log(item);
             $state.go('tab.tab3-details', { id: item.id, title: title, type: type })
             $ionicTabsDelegate.showBar(false);
         }
@@ -120,7 +119,7 @@ angular.module('starter.controllers', [])
             $ionicTabsDelegate.showBar(false);
         }
     })
-    .controller('AccountCtrl', function ($scope, $state,$ionicTabsDelegate) {
+    .controller('AccountCtrl', function ($scope, $state, $ionicTabsDelegate) {
         $scope.goDetails = function () {
             $state.go('tab.account-details');
             $ionicTabsDelegate.showBar(false);

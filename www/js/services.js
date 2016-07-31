@@ -31,13 +31,6 @@ angular.module('starter.services', [])
         $this.callback();
         $this.isload = false;
       });
-      // $http.get($this.url + "?page=1&rows=" + settings.rows).success(function (response) {
-      //   console.log(response);
-      //   $this.page = 2;
-      //   $this.items = response.tngou;
-      //   $this.callback();
-      //   $this.isload = false;
-      // });
     }
   })
   .service('Tab1Service', function ($http, BaseService) {
