@@ -1,5 +1,5 @@
 angular.module('starter.controllers', [])
-    .controller('BaseCtrl', function ($scope, $rootScope, $ionicSlideBoxDelegate, $ionicTabsDelegate) {
+    .controller('BaseCtrl', function ($scope, $rootScope, $ionicActionSheet, $ionicSlideBoxDelegate, $ionicTabsDelegate) {
         $rootScope.imgUrl = server.imgUrl;
         //slide集合
         $scope.slides = $scope.classify;
@@ -24,11 +24,13 @@ angular.module('starter.controllers', [])
 
         //重要：因为页面中用了n个tabs组建，所以这里通过每个controller对应的currentTabId来判断哪个tabs来做选中操作。
         var selectTab = function (index) {
-            angular.forEach($ionicTabsDelegate._instances, function (tabs) {
-                if ($scope.currentTabId == tabs.$element[0].id) {
-                    tabs.select(index);
-                }
-            })
+            // 优化 使用delegate-handle来操作tabs # currentTabId
+            $ionicTabsDelegate.$getByHandle($scope.currentTabId).select(index);
+            // angular.forEach($ionicTabsDelegate._instances, function (tabs) {
+            //     if ($scope.currentTabId == tabs.$element[0].id) {
+            //         tabs.select(index);
+            //     }
+            // })
         }
 
         $scope.slideChanged = function (index) {
@@ -51,6 +53,37 @@ angular.module('starter.controllers', [])
             console.log('已经成为活动视图');
             $ionicTabsDelegate.showBar(true);
         });
+
+ 
+
+        // Triggered on a button click, or some other target
+        $scope.favorite = function () {
+
+            // Show the action sheet
+            var hideSheet = $ionicActionSheet.show({
+                buttons: [
+                    { text: '收藏' }
+                    // ,{ text: '取消' }
+                ],
+                destructiveText: 'Delete',
+                titleText: '收藏',
+                cancelText: 'Cancel',
+                cancel: function () {
+                    // add cancel code..
+                },
+                buttonClicked: function (index) {
+                    return true;
+                }
+            });
+
+            // For example's sake, hide the sheet after two seconds
+            $timeout(function () {
+                hideSheet();
+            }, 2000);
+
+        };
+
+
     })
     .controller('Tab1Ctrl', function ($scope, $state, $controller, Tab1Service, $ionicTabsDelegate) {
         $scope.classify = Tab1Service.getClassify()
