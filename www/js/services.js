@@ -1,9 +1,61 @@
 angular.module('starter.services', [])
-  .service('UserService', function ($http) {
+  .service('AccountService', function ($http) {
+    var $this = this;
     // 获取缓存用户信息
     this.getCacheUser = function () {
       return angular.fromJson(window.localStorage[cache.user]);
     }
+
+    // 登陆
+    this.login = function (name, password, callback) {
+      var url = urls.login + "&name=" + name + "&password=" + password;
+      $http.jsonp(url).success(function (response) {
+        if (response.status == true) {
+          window.localStorage[cache.token] = response.access_token;
+          $this.user(callback);
+        } else {
+          alert("用户名和密码不匹配！");
+        }
+      })
+    }
+    // 获取信息
+    this.user = function (callback) {
+      var url = urls.user + "&access_token=" + window.localStorage[cache.token];
+      $http.jsonp(url).success(function (response) {
+        console.log(response);
+        window.localStorage[cache.user] = angular.toJson(response);
+        callback(response)
+      })
+    }
+
+    // 注册
+    this.reg = function (account, email, password) {
+      var url = urls.reg + "&account=" + account + "&email=" + email + "&password=" + password;
+      $http.jsonp(url).success(function (response) {
+        if (response.status == false) {
+          alert(response.msg);
+        } else {
+          window.localStorage[cache.token] = response.access_token;
+        }
+      })
+    }
+
+    //获取收藏列表
+    this.getFavorites = function (page) {
+      var url = urls.favorite + "?page=" + page + "&rows" + settings.rows + "&access_token=" + window.localStorage[cache.token];
+      return $http.jsonp(url);
+    }
+    //删除收藏
+    this.deleteFav = function (id, type) {
+      var url = urls.favoriteDelete + "?id=" + id + "&type=" + type + "&access_token=" + window.localStorage[cache.token]
+      return $http.jsonp(url);
+    }
+    //添加收藏
+    this.addFav = function (id, type, title) {
+      var url = urls.favoriteAdd + "?id=" + id + "&type=" + type + "&title=" + title + "&access_token=" + window.localStorage[cache.token]
+      return $http.jsonp(url);
+    }
+
   })
   .service('BaseService', function ($http) {
     this.loadMore = function ($this) {
@@ -266,7 +318,4 @@ angular.module('starter.services', [])
       var url = server.domain + "/" + type + "/show?id=" + id + "&callback=JSON_CALLBACK";
       return $http.jsonp(url);
     }
-  })
-  .service('AccountCtrl', function ($http) {
-
   });

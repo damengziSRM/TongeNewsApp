@@ -7,3 +7,11 @@ angular.module('starter.filter', [])
             return str;
         }
     })
+     .filter('toSex', function () {
+        return function (gender) {
+            if (gender) {
+                return "男";
+            }
+            return "女";
+        }
+    })

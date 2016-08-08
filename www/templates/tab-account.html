@@ -1,14 +1,13 @@
 <ion-view view-title="我">
     <ion-content>
+        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
         <ion-list>
-
             <a class="item item-avatar item-icon-right" ng-click="goDetails()">
-                <img ng-src="/img/ben.png">
-                <h2><span>未登录</span></h2>
-                <!--<p>积分：<span bo-bind="Account.score"></span></p>-->
+                <img src="img/ben.png" ng-src="{{imgUrl+user.avatar}}">
+                <h2><span>{{user.account}}</span></h2>
+                <p>积分：<span>{{user.integral}}</span></p>
                 <i class="icon ion-ios-arrow-right"></i>
             </a>
-
             <!--<div class="button-bar bar-light text-center">
                 <a class="button icon-left" ng-click="openModal(1)">
                     <i class="icon ion-ios-star-outline"></i>
@@ -50,10 +49,9 @@
             <ion-item onclick="window.open('https://git.oschina.net/tonge/TongeNewsApp', '_blank', 'location=yes')">
                 此项目已开源
             </ion-item>
+            <ion-item class="text-center">
+                <img src="img/TongeBlog.jpg" width="120" /><br> @TongeBlog
+            </ion-item>
         </ion-list>
-        <div class="text-center">
-            <img ng-src="img/TongeBlog.jpg" width="120" /><br> @TongeBlog<br> &copy; 2016
-
-        </div>
     </ion-content>
 </ion-view>

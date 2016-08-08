@@ -1,5 +1,5 @@
 <ion-view view-title="农业">
-  <ion-slide-box show-pager="false" on-slide-changed="slideChanged($index)">
+  <ion-slide-box show-pager="false"  delegate-handle="slide4" on-slide-changed="slideChanged($index)">
     <ion-slide ng-repeat="slide in slides">
       <ion-content>
         <ion-refresher pulling-text="下拉刷新" on-refresh="slide.doRefresh()"></ion-refresher>

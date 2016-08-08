@@ -1,14 +1,15 @@
 <ion-view view-title="个人中心">
-    <ion-content bindonce="Account" style="background: #f4f4f4">
+    <ion-content bindonce="user">
+        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
         <ion-list>
             <a class="item item-avatar" href="#">
-                <img src="avatar" ng-src="img/ben.png" />
-                <h2><span ng-bind="account">Tonge</span></h2>
-                <p>积分：<span bo-bind="integral"></span></p>
+                <img src="img/ben.png" ng-src="{{imgUrl+user.avatar}}">
+                <h2><span>{{user.account}}</span></h2>
+                <p>积分：<span>{{user.integral}}</span></p>
             </a>
             <ion-item>
                 邮箱
-                <span class="item-note" ng-bind="email"></span>
+                <span class="item-note">{{user.email}}</span>
             </ion-item>
             <!--<ion-item>
                  用户主页域名 http://www.tngou.net/my/+domain
@@ -24,43 +25,43 @@
             </ion-item>-->
             <ion-item>
                 性别
-                <span class="item-note" ng-bind="gender"></span>
+                <span class="item-note">{{user.gender | toSex :user.gender}}</span>
             </ion-item>
             <ion-item>
                 出生年月
-                <span class="item-note" ng-bind="birth"></span>
+                <span class="item-note">{{user.birth}}</span>
             </ion-item>
             <ion-item>
                 省份
-                <span class="item-note" ng-bind="province"></span>
+                <span class="item-note">{{user.province}}</span>
             </ion-item>
             <ion-item>
                 城市
-                <span class="item-note" ng-bind="city"></span>
+                <span class="item-note">{{user.city}}</span>
             </ion-item>
             <ion-item>
                 个性签名
-                <span class="item-note" ng-bind="signature"></span>
+                <span class="item-note">{{user.signature}}</span>
             </ion-item>
             <ion-item>
                 电话
-                <span class="item-note" ng-bind="phone"></span>
+                <span class="item-note">{{user.phone}}</span>
             </ion-item>
             <ion-item>
                 QQ
-                <span class="item-note" ng-bind="qq"></span>
+                <span class="item-note">{{user.qq}}</span>
             </ion-item>
             <ion-item>
                 微博
-                <span class="item-note" ng-bind="weibo"></span>
+                <span class="item-note">{{user.weibo}}</span>
             </ion-item>
             <ion-item>
                 注册时间
-                <span class="item-note" ng-bind="time"></span>
+                <span class="item-note">{{user.time}}</span>
             </ion-item>
- 
+
             <ion-item>
-                <button ng-click="loginOut()" class="button button-full button-positive">注销
+                <button ng-click="logout()" class="button button-full button-positive">注销
                 </button>
             </ion-item>
         </ion-list>

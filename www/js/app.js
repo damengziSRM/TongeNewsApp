@@ -35,7 +35,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       .state('tab', {
         url: '/tab',
         abstract: true,
-        templateUrl: 'templates/tabs.html'
+        templateUrl: 'templates/tabs.html',
+        controller:'AppCtrl'
       })
       .state('tab.tab1', {
         url: '/tab1',
@@ -118,6 +119,24 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           }
         }
       })
+      .state('tab.account-login', {
+        url: '/tab/account-login',
+        views: {
+          'tab-account': {
+            templateUrl: 'templates/tab-account-login.html',
+            controller: 'LoginCtrl'
+          }
+        }
+      })   
+      .state('tab.account-fav', {
+        url: '/tab/account-fav',
+        views: {
+          'tab-account': {
+            templateUrl: 'templates/tab-account-fav.html',
+            controller: 'FavCtrl'
+          }
+        }
+      })  
       .state('tab.account-details', {
         url: '/tab/account-details',
         views: {
@@ -126,7 +145,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             controller: 'AccountDetailsCtrl'
           }
         }
-      });;
+      });
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/tab/tab1');
