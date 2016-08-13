@@ -2,8 +2,9 @@ angular.module('starter.controllers', [])
     .controller('AppCtrl', function ($rootScope) {
         $rootScope.imgUrl = server.imgUrl;
     })
-    .controller('AccountCtrl', function ($scope, $ionicModal, $state, $ionicTabsDelegate, $ionicSlideBoxDelegate, AccountService) {
+    .controller('AccountCtrl', function ($scope, $rootScope, $ionicPopup, $ionicModal, $state, $ionicTabsDelegate, $ionicSlideBoxDelegate, AccountService) {
 
+        $rootScope.isLogin = false;
         $ionicModal.fromTemplateUrl('templates/tab-account-login.html', {
             scope: $scope,
             animation: 'slide-in-up'
@@ -29,18 +30,25 @@ angular.module('starter.controllers', [])
             AccountService.login($scope.loginData.name, $scope.loginData.password, function (user) {
                 //account avatar domain  email  gender id integral isemail isphone status time title weiboid
                 $scope.user = user;
+                $rootScope.isLogin = true;
                 $scope.modal.hide();
             });
         }
         $scope.doRefresh = function () {
-            AccountService.user(function (user) {
-                $scope.user = user;
+            AccountService.user(function (result) {
+                if (result.status == false) {
+                    $ionicPopup.alert({
+                        title: '提示',
+                        template: result.msg
+                    });
+                }
+                $scope.user = result;
                 $scope.$broadcast('scroll.refreshComplete');
             });
         }
 
         $scope.goDetails = function () {
-            if ($scope.user.account == "未登陆") {
+            if ($rootScope.isLogin == false) {
                 $scope.modal.show();
             } else {
                 $state.go('tab.account-details');
@@ -50,10 +58,14 @@ angular.module('starter.controllers', [])
 
         $scope.$on('$ionicView.beforeEnter', function () {
             console.log('已经成为活动视图');
-            $scope.user = AccountService.getCacheUser();
-            if ($scope.user == undefined) {
-                $scope.user = {
-                    account: "未登陆"
+            var user = AccountService.getCacheUser();
+            if (user == undefined) {
+                $rootScope.isLogin = false;
+                $scope.user = {};
+            } else {
+                if (user.status != false) {
+                    $rootScope.isLogin = true;
+                    $scope.user = user;
                 }
             }
             $ionicTabsDelegate.showBar(true);
@@ -73,23 +85,27 @@ angular.module('starter.controllers', [])
         $scope.accountSlideChanged = function (index) {
             accountTab.select(accountSlide.currentIndex());
         };
-
     })
-    .controller('AccountDetailsCtrl', function ($scope, $ionicHistory, AccountService) {
+    .controller('AccountDetailsCtrl', function ($scope, $rootScope, $ionicHistory, AccountService) {
         // 注销登陆
         $scope.logout = function () {
+            // 删除本地缓存
             window.localStorage.removeItem(cache.user);
+            window.localStorage.removeItem(cache.token);
+            $rootScope.isLogin = false;
+
             $ionicHistory.goBack();
         }
         $scope.user = AccountService.getCacheUser();
         $scope.doRefresh = function () {
             AccountService.user(function (user) {
                 $scope.user = user;
+                $rootScope.isLogin = true;
                 $scope.$broadcast('scroll.refreshComplete');
             });
         }
     })
-    .controller('FavCtrl',function($scope,AccountService){
+    .controller('FavCtrl', function ($scope, AccountService) {
     })
     .controller('BaseCtrl', function ($scope, $rootScope, $ionicActionSheet, $ionicSlideBoxDelegate, $ionicTabsDelegate) {
         $rootScope.imgUrl = server.imgUrl;

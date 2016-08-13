@@ -3,8 +3,8 @@
         <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
         <ion-list>
             <a class="item item-avatar item-icon-right" ng-click="goDetails()">
-                <img src="img/ben.png" ng-src="{{imgUrl+user.avatar}}">
-                <h2><span>{{user.account}}</span></h2>
+                <img src="img/ben.png" ng-src="{{user.avatar==undefind?'':imgUrl+user.avatar}}">
+                <h2><span>{{user.account==undefind?'未登陆':user.account}}</span></h2>
                 <p>积分：<span>{{user.integral}}</span></p>
                 <i class="icon ion-ios-arrow-right"></i>
             </a>
