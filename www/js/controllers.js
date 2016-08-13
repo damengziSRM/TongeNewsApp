@@ -1,6 +1,25 @@
 angular.module('starter.controllers', [])
-    .controller('AppCtrl', function ($rootScope) {
+    .controller('AppCtrl', function ($scope, $timeout, $rootScope, $ionicModal) {
         $rootScope.imgUrl = server.imgUrl;
+
+        $ionicModal.fromTemplateUrl('templates/TongeBlog.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function (modal) {
+            $scope.modal = modal;
+        });
+
+        $scope.openModal = function () {
+            $scope.modal.show();
+        };
+        $scope.closeModal = function () {
+            $scope.modal.hide();
+        };
+
+        $timeout(function () {
+            $scope.modal.show();
+        }, 5000)
+
     })
     .controller('AccountCtrl', function ($scope, $rootScope, $ionicPopup, $ionicModal, $state, $ionicTabsDelegate, $ionicSlideBoxDelegate, AccountService) {
 
