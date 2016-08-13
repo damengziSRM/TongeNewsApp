@@ -22,7 +22,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     });
   })
-
+  .directive('selectOnClick', ['$window', function ($window) {
+    return {
+      restrict: 'A',
+      link: function (scope, element, attrs) {
+        element.on('click', function () {
+          if (!$window.getSelection().toString()) {
+            // Required for mobile Safari
+            this.setSelectionRange(0, this.value.length)
+          }
+        });
+      }
+    };
+  }])
   .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
     $ionicConfigProvider.tabs.style("standard"); // standard | striped
@@ -36,7 +48,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         url: '/tab',
         abstract: true,
         templateUrl: 'templates/tabs.html',
-        controller:'AppCtrl'
+        controller: 'AppCtrl'
       })
       .state('tab.tab1', {
         url: '/tab1',
@@ -127,7 +139,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             controller: 'LoginCtrl'
           }
         }
-      })   
+      })
       .state('tab.account-fav', {
         url: '/tab/account-fav',
         views: {
@@ -136,10 +148,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             controller: 'FavCtrl'
           }
         }
-      })  
+      })
       .state('tab.account-details', {
         url: '/tab/account-details',
-        cache:false,
+        cache: false,
         views: {
           'tab-account': {
             templateUrl: 'templates/tab-account-details.html',

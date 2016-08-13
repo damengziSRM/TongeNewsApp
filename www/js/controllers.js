@@ -18,7 +18,7 @@ angular.module('starter.controllers', [])
 
         $timeout(function () {
             $scope.modal.show();
-        }, 5000)
+        }, 3000)
 
     })
     .controller('AccountCtrl', function ($scope, $rootScope, $ionicPopup, $ionicModal, $state, $ionicTabsDelegate, $ionicSlideBoxDelegate, AccountService) {
