@@ -11,8 +11,7 @@
 >本项目基于移动跨平台开发框架 Ionic 开发，主要包含健康、医疗、生活、农业、和用户五大模块，以下是功能架构图。
 
 [图]
-![image](https://git.oschina.net/tonge/TongeNewsApp/tree/master/www/img/TongeNewsApp.jpg)
-
+>![image](https://git.oschina.net/tonge/TongeNewsApp/raw/master/www/img/TongeNews.png)
 
 ###目录
 
@@ -43,7 +42,7 @@
 >版权申明：欢迎转载，但必须保留此段文字注明出处，违者必究。
 >
 >加群交流：[Tonge移动跨平台开发QQ交流群] 111055535
->![image](https://git.oschina.net/tonge/TongeNewsApp/tree/master/www/img/qqgroup.png)
+>![image](https://git.oschina.net/tonge/TongeNewsApp/raw/master/www/img/qqgroup.png)
 
 
 
