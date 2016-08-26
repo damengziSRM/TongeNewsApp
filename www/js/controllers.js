@@ -260,6 +260,18 @@ angular.module('starter.controllers', [])
 
         // Triggered on a button click, or some other target
         $scope.favorite = function () {
+            var user = AccountService.getCacheUser()
+            if (user == undefined) {
+                $ionicLoading.show({
+                    template: '请登录!',
+                    noBackdrop: true
+                })
+                $timeout(function () {
+                    $ionicLoading.hide();
+                }, 1000)
+                return;
+            }
+
 
             // Show the action sheet
             var hideSheet = $ionicActionSheet.show({
