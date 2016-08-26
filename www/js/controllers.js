@@ -124,7 +124,64 @@ angular.module('starter.controllers', [])
             });
         }
     })
-    .controller('FavCtrl', function ($scope, AccountService) {
+    .controller('FavCtrl', function ($scope, $state, $timeout, $ionicLoading, $ionicListDelegate, FavService) {
+        $scope.shouldShowDelete = false;
+        $scope.shouldShowReorder = false;
+        $scope.listCanSwipe = true;
+
+        var vm = $scope.vm = {
+            row: 1,
+            isload: false,
+            items: [],
+            load: function () {
+                FavService.getFavorites(vm.row).success(function (response) {
+                    console.log(response);
+                    if (response.tngou.length == 0) {
+                        vm.isload = true;
+                    } else {
+                        vm.row += 1;
+                        vm.items = vm.items.concat(response.tngou);
+                    }
+                }).finally(function () {
+                    $scope.$broadcast('scroll.refreshComplete');
+                    $scope.$broadcast('scroll.infiniteScrollComplete');
+                });
+            },
+            doRefresh: function () {
+                vm.row = 1;
+                vm.load();
+            },
+            loadMore: function () {
+                vm.load();
+            }
+        }
+
+        $scope.goDetails = function (item) {
+            $state.go('tab.tab-account', { id: item.id, title: item.title, type: item.otype })
+        }
+        $scope.removeItem = function (item) {
+            console.log(item);
+            FavService.deleteFav(item.id, item.otype).success(function (response) {
+                if (response.status == true) {
+                    vm.items.splice(vm.items.indexOf(item), 1);
+                    $ionicListDelegate.closeOptionButtons();
+                    $ionicLoading.show({
+                        template: '已删除',
+                        noBackdrop: true
+                    })
+
+                } else {
+                    $ionicLoading.show({
+                        template: '删除失败',
+                        noBackdrop: true
+                    })
+                }
+                $timeout(function () {
+                    $ionicLoading.hide();
+                }, 1000)
+            })
+        };
+
     })
     .controller('BaseCtrl', function ($scope, $rootScope, $ionicActionSheet, $ionicSlideBoxDelegate, $ionicTabsDelegate) {
         $rootScope.imgUrl = server.imgUrl;
@@ -193,14 +250,13 @@ angular.module('starter.controllers', [])
             $ionicTabsDelegate.showBar(false);
         }
     })
-    .controller('Tab1DetailsCtrl', function ($scope, $stateParams, Tab1Service) {
+    .controller('Tab1DetailsCtrl', function ($scope, $stateParams, $timeout, $ionicLoading, $ionicPopover, $ionicActionSheet, Tab1Service, FavService) {
         var id = $stateParams.id;
         var type = $stateParams.type;
-        $scope.title = $stateParams.title;
+        var title = $scope.title = $stateParams.title;
         Tab1Service.getDetails(type, id).success(function (response) {
             $scope.item = response;
         })
-
 
         // Triggered on a button click, or some other target
         $scope.favorite = function () {
@@ -211,24 +267,34 @@ angular.module('starter.controllers', [])
                     { text: '收藏' }
                     // ,{ text: '取消' }
                 ],
-                destructiveText: 'Delete',
+                // destructiveText: 'Delete',
                 titleText: '收藏',
                 cancelText: 'Cancel',
                 cancel: function () {
                     // add cancel code..
                 },
                 buttonClicked: function (index) {
+                    console.log(index);
+                    FavService.addFav(id, type, title).success(function (response) {
+                        if (response.status == true) {
+                            $ionicLoading.show({
+                                template: '收藏成功',
+                                noBackdrop: true
+                            })
+                        } else {
+                            $ionicLoading.show({
+                                template: '收藏失败',
+                                noBackdrop: true
+                            })
+                        }
+                        $timeout(function () {
+                            $ionicLoading.hide();
+                        }, 1000)
+                    });
                     return true;
                 }
             });
-
-            // For example's sake, hide the sheet after two seconds
-            $timeout(function () {
-                hideSheet();
-            }, 2000);
-
         };
-
     })
     .controller('Tab2Ctrl', function ($scope, $state, Tab2Service, $controller, $ionicTabsDelegate) {
         $scope.classify = Tab2Service.getTab2Menu()

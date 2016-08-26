@@ -14,9 +14,9 @@ var urls = {
     login: server.domain + '/oauth2/login?callback=JSON_CALLBACK&client_id=' + settings.client_id + '&client_secret=' + settings.client_secret,
     reg: server.domain + '/oauth2/reg?callback=JSON_CALLBACK&client_id=' + settings.client_id + '&client_secret=' + settings.client_secret,
     user: server.domain + '/user?callback=JSON_CALLBACK',
-    favorite: server.domain + '/my/favorite',
-    favoriteAdd: server.domain + '/favorite/add',
-    favoriteDelete: server.domain + '/favorite/delete',
+    favorite: server.domain + '/my/favorite?callback=JSON_CALLBACK',
+    favoriteAdd: server.domain + '/favorite/add?callback=JSON_CALLBACK',
+    favoriteDelete: server.domain + '/favorite/delete?callback=JSON_CALLBACK',
 }
 
 var cache = {

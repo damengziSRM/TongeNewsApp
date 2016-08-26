@@ -2,7 +2,7 @@
     <ion-content bindonce="user">
         <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
         <ion-list>
-            <a class="item item-avatar" href="#">
+            <a class="item item-avatar" >
                 <img src="img/ben.png" ng-src="{{imgUrl+user.avatar}}">
                 <h2><span>{{user.account}}</span></h2>
                 <p>积分：<span>{{user.integral}}</span></p>

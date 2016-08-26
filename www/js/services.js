@@ -40,22 +40,25 @@ angular.module('starter.services', [])
       })
     }
 
+
+
+  })
+  .service('FavService', function ($http) {
     //获取收藏列表
     this.getFavorites = function (page) {
-      var url = urls.favorite + "?page=" + page + "&rows" + settings.rows + "&access_token=" + window.localStorage[cache.token];
+      var url = urls.favorite + "&page=" + page + "&rows" + settings.rows + "&access_token=" + window.localStorage[cache.token];
       return $http.jsonp(url);
     }
     //删除收藏
     this.deleteFav = function (id, type) {
-      var url = urls.favoriteDelete + "?id=" + id + "&type=" + type + "&access_token=" + window.localStorage[cache.token]
+      var url = urls.favoriteDelete + "&id=" + id + "&type=" + type + "&access_token=" + window.localStorage[cache.token]
       return $http.jsonp(url);
     }
     //添加收藏
     this.addFav = function (id, type, title) {
-      var url = urls.favoriteAdd + "?id=" + id + "&type=" + type + "&title=" + title + "&access_token=" + window.localStorage[cache.token]
+      var url = urls.favoriteAdd + "&id=" + id + "&type=" + type + "&title=" + title + "&access_token=" + window.localStorage[cache.token]
       return $http.jsonp(url);
     }
-
   })
   .service('BaseService', function ($http) {
     this.loadMore = function ($this) {
