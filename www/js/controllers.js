@@ -136,7 +136,7 @@ angular.module('starter.controllers', [])
             load: function () {
                 FavService.getFavorites(vm.row).success(function (response) {
                     console.log(response);
-                    if (response.tngou.length == 0) {
+                    if (response.status == false || response.tngou.length == 0) {
                         vm.isload = true;
                     } else {
                         vm.row += 1;
@@ -148,6 +148,7 @@ angular.module('starter.controllers', [])
                 });
             },
             doRefresh: function () {
+                vm.items = [];
                 vm.row = 1;
                 vm.load();
             },
@@ -250,7 +251,7 @@ angular.module('starter.controllers', [])
             $ionicTabsDelegate.showBar(false);
         }
     })
-    .controller('Tab1DetailsCtrl', function ($scope, $stateParams, $timeout, $ionicLoading, $ionicPopover, $ionicActionSheet, Tab1Service, FavService) {
+    .controller('Tab1DetailsCtrl', function ($scope, $stateParams, $timeout, $ionicLoading, $ionicPopover, $ionicActionSheet, Tab1Service, AccountService, FavService) {
         var id = $stateParams.id;
         var type = $stateParams.type;
         var title = $scope.title = $stateParams.title;
