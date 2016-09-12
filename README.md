@@ -30,6 +30,7 @@
 - [ionic开源项目教程] 第13讲 Service层继续优化，提取公用Service，以及生活和农业两大模块的实现
 - [ionic开源项目教程] 第14讲 ionic解决跨域问题
 - [ionic开源项目教程] 第15讲 ionic用户个人中心登录注册的实现
+- [ionic开源项目教程] 第16讲 实现添加收藏、获取收藏列表、删除收藏
 
 ##
 >作者：Tonge
@@ -45,5 +46,12 @@
 >![image](https://git.oschina.net/tonge/TongeNewsApp/raw/master/www/img/qqgroup.png)
 
 
+##
+1.制作密钥
+keytool -genkey -v -keystore cn.tongedev.news -alias TongeBlog -keyalg RSA -keysize 2048 -validity 5000
 
+2.签名
+jarsigner -digestalg SHA1 -sigalg MD5withRSA -tsa https://timestamp.geotrust.com/tsa -keystore cn.tongedev.news -signedjar TongeNewsApp-signed.apk TongeNewsApp-unsigned.apk TongeBlog
 
+3.优化
+zipalign -v 4 TongeNewsApp-signed.apk TongeNewsApp.apk
